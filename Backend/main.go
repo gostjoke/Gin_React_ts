@@ -14,6 +14,8 @@ func main() {
 
 	// Connect DB
 	config.ConnectDB()
+	config.DB.AutoMigrate(&models.Department{})
+	config.DB.AutoMigrate(&models.UserProfile{})
 	config.DB.AutoMigrate(&models.User{})
 
 	// Routes

@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"net/http"
 	"time"
 
@@ -15,54 +16,54 @@ import (
 var JWT_SECRET = []byte("MY_SECRET_KEY")
 
 func Register(c *gin.Context) {
-	var body struct {
-		Username string `json:"username"`
-		Password string `json:"password"`
-	}
+	username := c.PostForm("username")
+	password := c.PostForm("password")
 
-	if err := c.Bind(&body); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid input"})
+	if username == "" || password == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Username and password required"})
 		return
 	}
 
-	// 密碼加密
-	hash, _ := bcrypt.GenerateFromPassword([]byte(body.Password), 10)
+	hash, _ := bcrypt.GenerateFromPassword([]byte(password), 10)
 
 	user := models.User{
-		Username: body.Username,
+		Username: username,
 		Password: string(hash),
 	}
 
 	config.DB.Create(&user)
 
-	c.JSON(http.StatusOK, gin.H{"message": "User registered"})
+	c.JSON(200, gin.H{"message": "User registered"})
 }
 
 func Login(c *gin.Context) {
-	var body struct {
-		Username string `json:"username"`
-		Password string `json:"password"`
-	}
+	username := c.PostForm("username")
+	password := c.PostForm("password")
 
-	if err := c.Bind(&body); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid input"})
+	fmt.Println("Login attempt:", username, password)
+
+	if username == "" || password == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Username and password required"})
 		return
 	}
 
 	var user models.User
-	config.DB.Where("username = ?", body.Username).First(&user)
-
-	// 密碼比對
-	err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(body.Password))
-	if err != nil {
+	result := config.DB.Where("username = ?", username).First(&user)
+	if result.Error != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Wrong username or password"})
 		return
 	}
 
-	// 建立 JWT Token
+	// ✅ 正確的 bcrypt 比對
+	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password)); err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Wrong username or password"})
+		return
+	}
+
+	// 建立 JWT
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"username": user.Username,
-		"exp":      time.Now().Add(24 * time.Hour).Unix(), // 一天有效
+		"exp":      time.Now().Add(24 * time.Hour).Unix(),
 	})
 
 	tokenString, _ := token.SignedString(JWT_SECRET)
