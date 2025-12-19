@@ -71,8 +71,6 @@ type MATNRMPN struct {
 }
 
 //
-
-//
 // =======================
 // CPN（Customer Part Number）
 // =======================

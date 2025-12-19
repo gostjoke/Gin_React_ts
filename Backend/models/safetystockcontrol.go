@@ -6,7 +6,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type SafetyStockControl struct {
+type SafetyStock struct {
 	gorm.Model
 	ItemCode     string    `json:"item_code" gorm:"uniqueIndex"`
 	ItemName     string    `json:"item_name"`
@@ -18,6 +18,6 @@ type SafetyStockControl struct {
 	LastUpdated  time.Time `json:"last_updated"`
 }
 
-func (SafetyStockControl) TableName() string {
+func (SafetyStock) TableName() string {
 	return "safety_stock_controls"
 }
