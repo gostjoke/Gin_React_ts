@@ -20,7 +20,7 @@ const items = [
   },
  {
     title: "test",
-    url: "/",
+    url: "/test",
     icon: Home,
   },
   {

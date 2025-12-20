@@ -1,5 +1,6 @@
 # Gin + React TypeScript Fullstack Starter
 # Tien-Wei Hsu 用來練習的 歡迎自取
+# FII 測試中
 
 這是一個以 **Gin（Go）後端** 搭配 **React TypeScript 前端** 所構建的全端練習專案。  
 專案目標是打造一個簡潔、模組化且可擴充的開發架構，並示範以下技術的整合方式：
