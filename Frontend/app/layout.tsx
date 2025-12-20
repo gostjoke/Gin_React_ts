@@ -1,6 +1,11 @@
 import type { Metadata } from "next"
-import { SidebarProvider, SidebarTrigger, SidebarInset } from "../components/ui/sidebar"
+import {
+  SidebarProvider,
+  SidebarTrigger,
+  SidebarInset,
+} from "../components/ui/sidebar"
 import { AppSidebar } from "../components/app-sidebar"
+import { NavigationMenuCustom } from "../components/app-navbar"
 import "./globals.css"
 
 export const metadata: Metadata = {
@@ -17,22 +22,35 @@ export default function RootLayout({
     <html lang="en">
       <body className="antialiased bg-gray-50">
         <SidebarProvider>
-          <div className="flex min-h-screen">
+          {/* ===== Whole Screen ===== */}
+          <div className="flex h-screen w-screen overflow-hidden">
+
+            {/* ===== Left Sidebar ===== */}
             <AppSidebar />
-            <SidebarInset className="flex-1">
-              <div className="flex flex-col h-screen">
-                <header className="bg-white border-b border-gray-200 px-6 py-4">
-                  <div className="flex items-center gap-3">
-                    <SidebarTrigger />
-                    <h1 className="text-xl font-semibold text-gray-900">Dashboard</h1>
-                  </div>
-                </header>
-                <main className="flex-1 overflow-auto bg-white">
-                  <div className="p-6">
-                    {children}
-                  </div>
-                </main>
-              </div>
+
+            {/* ===== Right Content (FULL WIDTH) ===== */}
+            <SidebarInset
+              className="
+                flex-1 flex flex-col
+                w-full max-w-none
+                overflow-hidden
+                bg-white
+              "
+            >
+              {/* ===== Header (FULL WIDTH) ===== */}
+              <header className="shrink-0 sticky top-0 z-30 bg-white border-b w-full">
+                <div className="h-12 flex items-center justify-between px-6 w-full">
+                  <SidebarTrigger />
+                  <NavigationMenuCustom />
+                </div>
+              </header>
+
+              {/* ===== Main Content (Scrollable) ===== */}
+              <main className="flex-1 overflow-auto bg-gray-50 w-full">
+                <div className="p-6 w-full max-w-none">
+                  {children}
+                </div>
+              </main>
             </SidebarInset>
           </div>
         </SidebarProvider>
