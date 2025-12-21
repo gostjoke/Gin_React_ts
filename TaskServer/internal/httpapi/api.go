@@ -17,9 +17,16 @@ type Store interface {
 	Update(model.Task) (model.Task, error)
 }
 
-type API struct{ store Store }
+type Enqueuer interface{ Enqueue(string) }
 
-func New(s Store) *API { return &API{store: s} }
+type API struct {
+	store Store
+	q     Enqueuer
+}
+
+func New(s Store, q Enqueuer) *API {
+	return &API{store: s, q: q}
+}
 
 func writeJSON(w http.ResponseWriter, status int, v any) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
@@ -53,6 +60,9 @@ func (a *API) CreateTask(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		writeJSON(w, 500, map[string]string{"error": "create failed"})
 		return
+	}
+	if a.q != nil {
+		a.q.Enqueue(created.ID)
 	}
 	writeJSON(w, 201, created)
 }
