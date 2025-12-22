@@ -18,7 +18,12 @@ const items = [
     url: "/",
     icon: Home,
   },
- {
+  {
+    title: "Payments",
+    url: "/payments",
+    icon: Home,
+  },
+  {
     title: "test",
     url: "/test",
     icon: Home,

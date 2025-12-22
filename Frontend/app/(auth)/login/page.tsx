@@ -21,7 +21,7 @@ export default function LoginPage() {
         </div>
       </div>
       <div className="bg-muted relative hidden lg:flex lg:items-center lg:justify-center border-l border-border">
-        <div className="relative w-3/4 aspect-[4/3]">
+        <div className="relative w-3/4 aspect-4/3">
           <Image
             src="/images/FoxconnLogo.png"
             alt="Foxconn Industrial Internet Logo"
