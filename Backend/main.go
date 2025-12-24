@@ -17,6 +17,10 @@ func main() {
 	config.DB.AutoMigrate(&models.Department{})
 	config.DB.AutoMigrate(&models.UserProfile{})
 	config.DB.AutoMigrate(&models.User{})
+	config.DB.AutoMigrate(&models.Customer{})
+	config.DB.AutoMigrate(&models.SerialNumber{})
+	config.DB.AutoMigrate(&models.CPN{})
+	config.DB.AutoMigrate(&models.Rma{})
 
 	// Routes
 	routes.RegisterRoutes(r)

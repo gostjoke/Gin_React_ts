@@ -23,18 +23,23 @@ type User struct {
 	CreatedAt time.Time
 	UpdatedAt time.Time
 
-	// 一對一
-	Profile UserProfile `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	// One-to-One relationship with UserProfile
+	Profile *UserProfile `gorm:"foreignKey:Username;references:Username;constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 }
 
 type UserProfile struct {
-	gorm.Model
-	UserID         uint       `json:"user_id" gorm:"uniqueIndex"`
-	FirstName      string     `json:"first_name"`
-	LastName       string     `json:"last_name"`
-	Email          string     `json:"email" gorm:"unique"`
-	Phone          string     `json:"phone"`
-	Address        string     `json:"address"`
-	DepartmentName string     `json:"department_name"`
+	Username string `json:"username" gorm:"primaryKey"`
+	User     User   `gorm:"foreignKey:Username;references:Username"`
+
+	FirstName string
+	LastName  string
+	Email     string `gorm:"unique"`
+	Phone     string
+	Address   string
+
+	DepartmentName string
 	Department     Department `gorm:"foreignKey:DepartmentName;references:Name"`
+
+	CreatedAt time.Time
+	UpdatedAt time.Time
 }
