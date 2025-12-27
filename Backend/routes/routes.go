@@ -9,7 +9,7 @@ import (
 
 func RegisterRoutes(r *gin.Engine) {
 	r.POST("/register", controllers.Register)
-	r.POST("/login", controllers.Login)
+	r.POST("/api/login", controllers.Login)
 
 	// 受保護的 API
 	protected := r.Group("/api")
