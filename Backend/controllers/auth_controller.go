@@ -73,3 +73,15 @@ func Login(c *gin.Context) {
 		"token": tokenString,
 	})
 }
+
+func GetUserList(c *gin.Context) {
+	// 取得所有使用者
+	// only use in test without any token
+	var users []models.User
+	config.DB.Find(&users)
+
+	c.JSON(http.StatusOK, gin.H{
+		"users": users,
+	})
+
+}

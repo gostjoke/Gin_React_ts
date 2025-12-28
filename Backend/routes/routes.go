@@ -20,3 +20,8 @@ func RegisterRoutes(r *gin.Engine) {
 		})
 	}
 }
+
+func TestRoutes(r *gin.Engine) {
+	r.POST("/test/user", controllers.GetUserList)
+
+}

@@ -41,8 +41,12 @@ func main() {
 	config.DB.AutoMigrate(&models.Rma{})
 	config.DB.AutoMigrate(&models.SerialNumber{})
 
+	// Test Routes, must close before production danger!!!!
+	routes.TestRoutes(r)
+
 	// Routes
 	routes.RegisterRoutes(r)
+	routes.MaterialRoutes(r)
 
 	cwd, _ := os.Getwd()
 	log.Println("Current working dir:", cwd)

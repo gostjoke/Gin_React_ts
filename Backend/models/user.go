@@ -23,7 +23,7 @@ func (Department) TableName() string {
 
 type User struct {
 	Username  string `json:"username" gorm:"primaryKey;size:191"`
-	Password  string `json:"-" gorm:"not null"`
+	Password  string `json:"-" gorm:"not null"` // Hashed password and not return serialized
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
