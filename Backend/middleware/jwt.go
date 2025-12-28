@@ -1,21 +1,27 @@
 package middleware
 
 import (
+	"fmt"
 	"net/http"
 	"os"
 	"strings"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
+	"github.com/joho/godotenv"
 )
 
-// var JWT_SECRET = []byte("MY_SECRET_KEY") // ⚠ 建議之後放環境變數
-var JWT_SECRET = []byte(os.Getenv("JWT_SECRET"))
+var JWT_SECRET []byte
 
 func init() {
+	// Load .env file if it exists
+	_ = godotenv.Load()
+
+	JWT_SECRET = []byte(os.Getenv("JWT_SECRET"))
 	if len(JWT_SECRET) == 0 {
 		panic("JWT_SECRET is not set")
 	}
+	fmt.Println("✅ JWT_SECRET loaded successfully")
 }
 
 func JWTAuth() gin.HandlerFunc {

@@ -15,18 +15,31 @@ import (
 	_ "modernc.org/sqlite"
 )
 
+func init() {
+	// Load .env file before any other package initialization
+	if err := godotenv.Load(); err != nil {
+		fmt.Println("⚠️ No .env file found, using system env")
+	}
+}
+
 func main() {
 	r := gin.Default()
 
 	// Connect DB
 	config.ConnectDB()
 	config.DB.AutoMigrate(&models.Department{})
-	config.DB.AutoMigrate(&models.UserProfile{})
 	config.DB.AutoMigrate(&models.User{})
+	config.DB.AutoMigrate(&models.UserProfile{})
+
 	config.DB.AutoMigrate(&models.Customer{})
-	config.DB.AutoMigrate(&models.SerialNumber{})
+
+	config.DB.AutoMigrate(&models.Manufacturer{})
+	config.DB.AutoMigrate(&models.MATNR{})
+	config.DB.AutoMigrate(&models.MPN{})
+	config.DB.AutoMigrate(&models.MATNRMPN{})
 	config.DB.AutoMigrate(&models.CPN{})
 	config.DB.AutoMigrate(&models.Rma{})
+	config.DB.AutoMigrate(&models.SerialNumber{})
 
 	// Routes
 	routes.RegisterRoutes(r)
@@ -34,15 +47,7 @@ func main() {
 	cwd, _ := os.Getwd()
 	log.Println("Current working dir:", cwd)
 
-	// Email
-	if err := godotenv.Load(); err != nil {
-		fmt.Println("⚠️ No .env file found, using system env")
-		err := os.WriteFile(".env.example", []byte("GMAIL_USER=\nGMAIL_PASS=\n"), 0644)
-		if err != nil {
-			fmt.Println("⚠️ No .env.example file found and failed to create one:", err)
-		}
-	}
-
+	// Email setup
 	gmailUser := os.Getenv("GMAIL_USER")
 	gmailPass := os.Getenv("GMAIL_PASS")
 

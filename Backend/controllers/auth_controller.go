@@ -7,7 +7,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
-	"golang.org/x/crypto/bcrypt"
+	"golang.org/x/crypto/bcrypt" // bcrypt 用於密碼雜湊
 
 	"gin-backend/config"
 	"gin-backend/models"
@@ -32,8 +32,9 @@ func Register(c *gin.Context) {
 	}
 
 	config.DB.Create(&user)
-
-	c.JSON(200, gin.H{"message": "User registered"})
+	fmt.Println("Registered user:", username)
+	message := fmt.Sprintf("User %s registered successfully", username)
+	c.JSON(200, gin.H{"message": message})
 }
 
 func Login(c *gin.Context) {

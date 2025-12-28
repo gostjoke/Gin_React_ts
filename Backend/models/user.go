@@ -6,8 +6,10 @@ import (
 	"gorm.io/gorm"
 )
 
+/* ---------------- Department ---------------- */
+
 type Department struct {
-	Name      string `json:"name" gorm:"primaryKey"`
+	Name      string `gorm:"primaryKey;size:191"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	DeletedAt gorm.DeletedAt `gorm:"index"`
@@ -17,27 +19,30 @@ func (Department) TableName() string {
 	return "django_departments"
 }
 
+/* ---------------- User ---------------- */
+
 type User struct {
-	Username  string `json:"username" gorm:"primaryKey"`
+	Username  string `json:"username" gorm:"primaryKey;size:191"`
 	Password  string `json:"-" gorm:"not null"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
-
-	// One-to-One relationship with UserProfile
-	Profile *UserProfile `gorm:"foreignKey:Username;references:Username;constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 }
 
+/* ---------------- UserProfile ---------------- */
+
 type UserProfile struct {
-	Username string `json:"username" gorm:"primaryKey"`
-	User     User   `gorm:"foreignKey:Username;references:Username"`
+	Username string `gorm:"primaryKey;size:191"`
+
+	// belongs to User
+	User User `gorm:"foreignKey:Username;references:Username;constraint:OnDelete:CASCADE;"`
 
 	FirstName string
 	LastName  string
-	Email     string `gorm:"unique"`
+	Email     string `gorm:"size:191;unique"`
 	Phone     string
 	Address   string
 
-	DepartmentName string
+	DepartmentName string     `gorm:"size:191;index"`
 	Department     Department `gorm:"foreignKey:DepartmentName;references:Name"`
 
 	CreatedAt time.Time

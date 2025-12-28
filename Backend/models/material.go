@@ -78,9 +78,10 @@ type MATNRMPN struct {
 // Composite PK: Customer + CPN + Revision
 //
 type CPN struct {
-	CustomerCode string `gorm:"primaryKey;size:20"`
-	Number       string `gorm:"primaryKey;size:50"` // CPN
-	Revision     string `gorm:"primaryKey;size:10"`
+	ID           uint   `gorm:"primaryKey;autoIncrement"`
+	CustomerCode string `gorm:"size:20;index"`
+	Number       string `gorm:"size:50;index"`
+	Revision     string `gorm:"size:10;index"`
 
 	MATNRNumber string `gorm:"size:40"`
 	MATNR       MATNR  `gorm:"foreignKey:MATNRNumber;references:Number"`
