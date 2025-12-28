@@ -114,7 +114,7 @@ export function NavigationMenuCustom() {
         <NavigationMenuItem className="hidden md:block">
           <NavigationMenuTrigger>List</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="grid w-[300px] gap-4">
+            <ul className="grid w-75 gap-4">
               <li>
                 <NavigationMenuLink asChild>
                   <Link href="#">
@@ -147,7 +147,7 @@ export function NavigationMenuCustom() {
         <NavigationMenuItem className="hidden md:block">
           <NavigationMenuTrigger>Simple</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="grid w-[200px] gap-4">
+            <ul className="grid w-50 gap-4">
               <li>
                 <NavigationMenuLink asChild>
                   <Link href="#">Components</Link>

@@ -55,6 +55,8 @@ const items = [
   },
 ]
 
+const itemstest = Array(4).fill(items).flat()
+
 export function AppSidebar() {
   return (
     <Sidebar className="w-64 border-r border-gray-200 bg-white">

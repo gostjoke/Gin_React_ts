@@ -1,5 +1,6 @@
 import { columns, Payment } from "./columns"
 import { DataTable } from "./data-table"
+import { AppBreadcrumb } from "@/components/app-breadcrumb"
 
 async function getData(): Promise<Payment[]> {
   // Fetch data from your API here.
@@ -24,8 +25,17 @@ export default async function DemoPage() {
   const data = await getData()
 
   return (
-    <div className="container mx-auto py-10">
-      <DataTable columns={columns} data={data} />
+    <div className="container mx-auto py-2">
+      <AppBreadcrumb 
+        items={[
+          { label: "首頁", href: "/" },
+          { label: "付款管理" }
+        ]} 
+      />
+      
+      <div className="mt-6">
+        <DataTable columns={columns} data={data} />
+      </div>
     </div>
   )
 }
