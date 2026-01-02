@@ -9,9 +9,9 @@ import (
 /* ---------------- Department ---------------- */
 
 type Department struct {
-	Name      string `gorm:"primaryKey;size:191"`
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	Name      string         `gorm:"primaryKey;size:191"`
+	CreatedAt time.Time      `gorm:"autoCreateTime"`
+	UpdatedAt time.Time      `gorm:"autoUpdateTime"`
 	DeletedAt gorm.DeletedAt `gorm:"index"`
 }
 
@@ -22,10 +22,10 @@ func (Department) TableName() string {
 /* ---------------- User ---------------- */
 
 type User struct {
-	Username  string `json:"username" gorm:"primaryKey;size:191"`
-	Password  string `json:"-" gorm:"not null"` // Hashed password and not return serialized
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	Username  string    `json:"username" gorm:"primaryKey;size:191"`
+	Password  string    `json:"-" gorm:"not null"` // Hashed password and not return serialized
+	CreatedAt time.Time `gorm:"autoCreateTime"`
+	UpdatedAt time.Time `gorm:"autoUpdateTime"`
 }
 
 /* ---------------- UserProfile ---------------- */
@@ -45,6 +45,6 @@ type UserProfile struct {
 	DepartmentName string     `gorm:"size:191;index"`
 	Department     Department `gorm:"foreignKey:DepartmentName;references:Name"`
 
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	CreatedAt time.Time `gorm:"autoCreateTime"`
+	UpdatedAt time.Time `gorm:"autoUpdateTime"`
 }

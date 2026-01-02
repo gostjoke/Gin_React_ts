@@ -9,10 +9,10 @@ import "time"
 // SAP: LFA1 / Manufacturer
 //
 type Manufacturer struct {
-	Code      string `gorm:"primaryKey;size:20"` // TI / ADI / NXP
-	Name      string `gorm:"size:100"`
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	Code      string    `gorm:"primaryKey;size:20;not null"` // TI / ADI / NXP
+	Name      string    `gorm:"size:100;not null"`
+	CreatedAt time.Time `gorm:"autoCreateTime"`
+	UpdatedAt time.Time `gorm:"autoUpdateTime"`
 }
 
 //
@@ -27,9 +27,9 @@ type MPN struct {
 	Number           string       `gorm:"primaryKey;size:50"`
 	Manufacturer     Manufacturer `gorm:"foreignKey:ManufacturerCode;references:Code"`
 
-	Description string `gorm:"size:255"`
-	CreatedAt   time.Time
-	UpdatedAt   time.Time
+	Description string    `gorm:"size:255"`
+	CreatedAt   time.Time `gorm:"autoCreateTime"`
+	UpdatedAt   time.Time `gorm:"autoUpdateTime"`
 }
 
 //
@@ -44,8 +44,8 @@ type MATNR struct {
 	MaterialType string `gorm:"size:10"` // ROH / HALB / FERT
 	BaseUnit     string `gorm:"size:10"` // EA / KG
 
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	CreatedAt time.Time `gorm:"autoCreateTime"`
+	UpdatedAt time.Time `gorm:"autoUpdateTime"`
 
 	MPNLinks []MATNRMPN `gorm:"foreignKey:MATNRNumber;references:Number"`
 	CPNLinks []CPN      `gorm:"foreignKey:MATNRNumber;references:Number"`
@@ -67,7 +67,8 @@ type MATNRMPN struct {
 
 	Status    string `gorm:"size:20"` // Approved / Blocked
 	IsPrimary bool
-	CreatedAt time.Time
+	CreatedAt time.Time `gorm:"autoCreateTime"`
+	UpdatedAt time.Time `gorm:"autoUpdateTime"`
 }
 
 //
@@ -89,5 +90,6 @@ type CPN struct {
 	Customer Customer `gorm:"foreignKey:CustomerCode;references:Code"`
 
 	Active    bool
-	CreatedAt time.Time
+	CreatedAt time.Time `gorm:"autoCreateTime"`
+	UpdatedAt time.Time `gorm:"autoUpdateTime"`
 }

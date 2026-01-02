@@ -15,7 +15,8 @@ type SafetyStock struct {
 	ReorderPoint int       `json:"reorder_point"`
 	LeadTimeDays int       `json:"lead_time_days"`
 	DailyUsage   int       `json:"daily_usage"`
-	LastUpdated  time.Time `json:"last_updated"`
+	CreatedAt    time.Time `gorm:"autoCreateTime"`
+	UpdatedAt    time.Time `gorm:"autoUpdateTime"`
 }
 
 func (SafetyStock) TableName() string {
