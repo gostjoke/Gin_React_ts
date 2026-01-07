@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"gin-backend/config"
 	"gin-backend/handler"
 	"gin-backend/infrastructure"
 	"gin-backend/models"
@@ -25,21 +24,8 @@ func init() {
 func main() {
 	r := gin.Default()
 
-	// Connect DB
-	config.ConnectDB()
-	config.DB.AutoMigrate(&models.Department{})
-	config.DB.AutoMigrate(&models.User{})
-	config.DB.AutoMigrate(&models.UserProfile{})
-
-	config.DB.AutoMigrate(&models.Customer{})
-
-	config.DB.AutoMigrate(&models.Manufacturer{})
-	config.DB.AutoMigrate(&models.MATNR{})
-	config.DB.AutoMigrate(&models.MPN{})
-	config.DB.AutoMigrate(&models.MATNRMPN{})
-	config.DB.AutoMigrate(&models.CPN{})
-	config.DB.AutoMigrate(&models.Rma{})
-	config.DB.AutoMigrate(&models.SerialNumber{})
+	// Initialize DB and Models
+	models.InitOnlineStoreModels()
 
 	// Test Routes, must close before production danger!!!!
 	routes.TestRoutes(r)
