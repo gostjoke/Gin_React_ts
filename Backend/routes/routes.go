@@ -8,8 +8,12 @@ import (
 )
 
 func RegisterRoutes(r *gin.Engine) {
+	r.Use(middleware.CORS())
 	r.POST("/register", controllers.Register)
 	r.POST("/login", controllers.Login)
+	r.GET("/metrics/qps", func(c *gin.Context) {
+		c.JSON(200, gin.H{"qps": middleware.GetQPS()})
+	})
 
 	// 受保護的 API
 	protected := r.Group("/api")
@@ -23,5 +27,4 @@ func RegisterRoutes(r *gin.Engine) {
 
 func TestRoutes(r *gin.Engine) {
 	r.POST("/test/user", controllers.GetUserList)
-
 }
