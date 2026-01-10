@@ -65,8 +65,8 @@ type OnlineStoreOrder struct {
 	Items   []OrderItem `gorm:"foreignKey:OrderID"`
 	Payment *Payment    `gorm:"foreignKey:OrderID"`
 
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	CreatedAt time.Time `gorm:"autoCreateTime"`
+	UpdatedAt time.Time `gorm:"autoUpdateTime"`
 }
 
 type Payment struct {
@@ -75,12 +75,13 @@ type Payment struct {
 	OrderID uint              `gorm:"uniqueIndex"`
 	Order   *OnlineStoreOrder `gorm:"constraint:OnDelete:CASCADE"`
 
-	Method string `gorm:"size:50"`
-	Status string `gorm:"size:50"`
-	Amount float64
+	Method string  `gorm:"size:50"`
+	Status string  `gorm:"size:50"`
+	Amount float64 `gorm:"not null"`
 
 	PaidAt    *time.Time
-	CreatedAt time.Time
+	CreatedAt time.Time `gorm:"autoCreateTime"`
+	UpdatedAt time.Time `gorm:"autoUpdateTime"`
 }
 
 type OrderItem struct {
