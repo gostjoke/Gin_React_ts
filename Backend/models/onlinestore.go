@@ -27,8 +27,9 @@ type ProductImage struct {
 }
 
 type Category struct {
-	ID   uint   `gorm:"primaryKey"`
-	Name string `gorm:"size:100;uniqueIndex;not null"`
+	ID          uint   `gorm:"primaryKey"`
+	Name        string `gorm:"size:100;uniqueIndex;not null"`
+	Description string `gorm:"type:text"`
 
 	Products []Product
 }
