@@ -7,3 +7,9 @@ type Email struct {
 	Subject string
 	Body    string
 }
+
+type TextMessage struct {
+	PhoneNumber string
+	Title       string
+	Message     string
+}
