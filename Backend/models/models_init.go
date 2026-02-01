@@ -6,7 +6,8 @@ import (
 
 func InitOnlineStoreModels() {
 	// Connect DB
-	config.ConnectDB()
+	// config.ConnectDB()
+	config.ConnectPostgreDB()
 
 	config.DB.AutoMigrate(&Department{})
 	config.DB.AutoMigrate(&User{})
