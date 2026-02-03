@@ -10,8 +10,8 @@ type Product struct {
 	Stock       int     `gorm:"not null;default:0"`
 	IsActive    bool    `gorm:"default:true"`
 
-	CategoryID uint
-	Category   Category
+	CategoryID uint		`gorm:"not null;index"`
+	Category   Category `gorm:"foreignKey:CategoryID;references:ID;constraint:OnDelete:RESTRICT"`
 
 	Images []ProductImage
 
