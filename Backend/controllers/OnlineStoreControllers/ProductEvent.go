@@ -59,3 +59,10 @@ func CreateProduct(c *gin.Context) {
 		"message": "product created successfully",
 	})
 }
+
+type CreateProductImageRequest struct {
+}
+
+func CreateProductImage(c *gin.Context) {
+	
+}
