@@ -24,6 +24,11 @@ const items = [
     icon: Home,
   },
   {
+    title: "PM",
+    url: "/pm",
+    icon: Home,
+  },
+  {
     title: "test",
     url: "/test",
     icon: Home,
@@ -61,8 +66,9 @@ export function AppSidebar() {
   return (
     <Sidebar className="w-64 border-r border-gray-200 bg-white">
       <SidebarContent className="p-4">
-        <div className="mb-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-1">My App</h2>
+        <div className="mb-6 flex flex-col items-center">
+          {/* <h2 className="text-lg font-bold text-gray-900 mb-1">Program Temp</h2> */}
+          <img src="/images/FoxconnLogo.png" alt="dead image" style={{ width: '75%', height: 'auto' }} />
           <p className="text-sm text-gray-500">Welcome back</p>
         </div>
         <SidebarGroup>
