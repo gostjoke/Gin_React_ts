@@ -40,7 +40,8 @@ export default function RootLayout({
               {/* ===== Header (FULL WIDTH) ===== */}
               <header className="shrink-0 sticky top-0 z-30 bg-white border-b w-full">
                 <div className="h-12 flex items-center justify-between px-6 w-full">
-                  <SidebarTrigger />
+                  {/* <SidebarTrigger /> */}
+                  <img src="" alt="" />
                   <NavigationMenuCustom />
                 </div>
               </header>

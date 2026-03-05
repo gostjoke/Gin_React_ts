@@ -69,12 +69,10 @@ export function AppSidebar() {
         <div className="mb-6 flex flex-col items-center">
           {/* <h2 className="text-lg font-bold text-gray-900 mb-1">Program Temp</h2> */}
           <img src="/images/FoxconnLogo.png" alt="dead image" style={{ width: '75%', height: 'auto' }} />
-          <p className="text-sm text-gray-500">Welcome back</p>
+          {/* add an line to separate */}
+          <div className="w-full border-t border-gray-200 mt-4"></div>
         </div>
         <SidebarGroup>
-          <SidebarGroupLabel className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-3">
-            Navigation
-          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-1">
               {items.map((item) => (

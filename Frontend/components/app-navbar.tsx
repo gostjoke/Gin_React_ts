@@ -3,6 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { CircleCheckIcon, CircleHelpIcon, CircleIcon } from "lucide-react";
+import { Separator } from "@/components/ui/separator"
 
 import { useIsMobile } from "@/hooks/use-mobile";
 import {
@@ -61,7 +62,7 @@ export function NavigationMenuCustom() {
       <NavigationMenuList className="flex-wrap">
         <NavigationMenuItem>
           <NavigationMenuTrigger>Home</NavigationMenuTrigger>
-          <NavigationMenuContent>
+          <NavigationMenuContent> 
             <ul className="grid gap-2 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
               <li className="row-span-3">
                 <NavigationMenuLink asChild>
@@ -90,18 +91,22 @@ export function NavigationMenuCustom() {
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
+        {/* issue no line */}
+        <Separator orientation="vertical" className="text-lg"/>
         <NavigationMenuItem>
           <NavigationMenuTrigger>Components</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid gap-2 sm:w-[400px] md:w-[500px] md:grid-cols-2 lg:w-[600px]">
               {components.map((component) => (
-                <ListItem
-                  key={component.title}
-                  title={component.title}
-                  href={component.href}
-                >
-                  {component.description}
-                </ListItem>
+                <>
+                  <ListItem
+                    key={component.title}
+                    title={component.title}
+                    href={component.href}
+                  >
+                    {component.description}
+                  </ListItem>
+                </>
               ))}
             </ul>
           </NavigationMenuContent>
