@@ -1,5 +1,6 @@
 // app/page.tsx
 import { AppBreadcrumb } from "@/components/app-breadcrumb"
+import { ChatDemo } from "./chatbot"
 
 export default function HomePage() {
   return (
@@ -18,6 +19,7 @@ export default function HomePage() {
         <p className="text-muted-foreground">
           Layout is working.
         </p>
+        <ChatDemo />
       </div>
     </>
   )

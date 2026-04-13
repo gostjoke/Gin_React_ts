@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from ollama_client import generate_response
 from pydantic import BaseModel
+from OllamaServer.utilities import log_request_response
 
 class ChatRequest(BaseModel):
     message: str
